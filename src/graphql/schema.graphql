@@ -1,0 +1,64 @@
+#import {User,UserListPayload} from './schemas/user.graphql'
+
+type UserUpdatePayload{
+    acknowledged: Boolean
+    matchedCount: Int
+    modifiedCount: Int
+    upsertedId: String
+}
+
+type UserInsertPayload{
+    acknowledged: Boolean
+    insertId: String
+}
+
+type Query {
+    users: [UserListPayload!]!
+    me: User!
+}
+type SignupPayload{
+    token:String!
+    user:User!
+}
+type LoginPayload{
+    token: String!
+    user: User!
+}
+
+type Mutation {
+    updateUser(_id:String!, firstName: String, lastName: String, email: String): UserUpdatePayload!
+    createUser(firstName: String!, lastName: String!, email: String!): UserInsertPayload!
+    signup(firstName:String!, lastName:String!, email:String!, password:String!): SignupPayload!
+    login(email:String!, password:String!): SignupPayload!
+}
+
+enum MutationType {
+    CREATED
+    UPDATED
+    DELETED
+}
+
+type SubscriptionPayload{
+    node:User
+    mutationType: MutationType
+}
+
+input UserCoreInput{
+    _id:String
+    clubId:String
+    clubIds:[String!]
+    teamId:String
+    teamIds:[String!]
+}
+
+input UserSubscriptionWhereInput{
+    mutation_in:[MutationType!]
+    node:UserCoreInput
+    AND:[UserSubscriptionWhereInput!]
+    OR:[UserSubscriptionWhereInput!]
+}
+
+type Subscription {
+    user(where: UserSubscriptionWhereInput):SubscriptionPayload!
+}
+

@@ -1,5 +1,12 @@
 ## GraphQL-Yoga MongoDB Example
 
+This is a small boilerplate/showcase how to use graphql-yoga combined with mongodb. Following features currently implemented
+
+* MongoDB validation
+* Authentication
+* CRUD
+* Subscription
+
 ### Running it:
 
 - Use `docker-compose up` to setup mongodb.
@@ -17,8 +24,7 @@
 ### Dependencies:
 
 - Graphql-Yoga
-- Mongoose
-- Babel
+- MongoDB
 - Nodemon
 
 
